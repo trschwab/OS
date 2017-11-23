@@ -1,0 +1,12 @@
+Troy Schwab
+Prelab 7 Answers
+
+1. It seems to me that insertions and removals will be easily made in a doubly linked list. Being able to navigate through and back in a list of memory and its contents will make it easy to remove and potentially even float empty nodes to the edges to maintain a partitioned list.
+Insertion should also be easy to implement, especially if partitions of free nodes are well kept.
+2. Potentially a hash table as that will allow processes to form blocks of used space when collisions occur. This will encorporate both the free and used sections of memory within one table.
+3. external fragmentation is when free space is scattered around and you don't have a large enough block to fulfill a request but you do have enough tiny free spaces. Let's say that a process is removed from memory, and it creates a free space in the center of memory. This is an example of an external fragmentation, as that small amount of memory may be unusable but could attach to a larger block for use.
+4. Internal Fragmentation is unused memory internal to a partition. An example of this is a process that requres so many bytes, and we allocate a block of bytes that has a few too many (say 2). These 2 bytes will be maintained with overhead but the overhead will be larger than the hole itself. An aoproach is to allocate memory to a process that is slightly larger than that which was requested. The difference betweent hat requested and the larger amount is your internal fragmentation.
+5. First fit is to allocate the first hole found that is big enough. Searching can start at either the beginning of a set of hole or at the location where the last first fit search ended. We can stop searching as soon as our hole is found. Although in practice, this will cause "splinters" at the beginning of a list.
+6. Best fit is to allocate the smallest hole that is big enough. This requires a search of the entire list unless we are ordered by size, although it produces the smallest leftover hole. Research though demonstrates that this fragmentation tends to be worse.
+7. Worst fit allocates the largest hole. This will once again search the whole list lest it is ordered by size. This will produe the largest leftover hole. This is good because the large hole left may be able to accomadate a smaller process, but in real life it is not good because it ensures that no large blocks are left open.
+

@@ -7,10 +7,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include "wrappers.c"
-
-#define MAXLINE 25
-
-void run(char buf[MAXLINE]);
+#include "ishell.h"
 
 int main(void) {
     char buf[MAXLINE];
@@ -33,12 +30,6 @@ int main(void) {
                 run(*command);
                 command[i] = strtok(NULL, semi);
             }
-            /*
-            secondCom[i] = strtok(NULL, semi);  
-            if (secondCom[i] != NULL) {
-                run(*secondCom);
-            }
-            */
         }
         printf("ishell> ");
         }

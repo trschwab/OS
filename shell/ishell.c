@@ -1,3 +1,5 @@
+// extra feature added was indefinite commands per line separated by semicolons as opposed to two
+
 #include <sys/wait.h>
 #include <stdio.h>
 #include <string.h>
@@ -8,57 +10,67 @@
 
 #define MAXLINE 25
 
+void run(char buf[MAXLINE]);
+
 int main(void) {
     char buf[MAXLINE];
-    //char *prevArg;//[MAXLINE];
-    pid_t pid;
-    int status; 
-    char *args[MAXLINE];
-    //char *commands[MAXLINE];
-    char *s = " ";
-    //char *semi = ";"; 
+    char *command[MAXLINE]; 
+    char *semi; 
     printf("ishell> ");
     while(fgets(buf, MAXLINE, stdin) != NULL) {
-        /*
-        if ((prevArg[0] ==  '\n') && (buf[0] == '\n')) {
-            //problem 3
-            printf("okay\n");
-            }
-            */
         if (buf[strlen(buf) - 1] == '\n') {
             buf[strlen(buf) - 1] = 0;
             }
-        pid = Fork();
-        if (pid < 0) {
-            perror("fork error");
-        } else if (pid == 0) { // child
+        if ((buf[0] == '\t') && (buf[1] == '\t')) { 
+            run("ls");
+        } else {
             int i = 0;
-            //strcpy(prevArg, buf);
-            args[i] = strtok(buf, s);
-            while(args[i] != NULL) {
-                i++;
-                args[i] = strtok(NULL, s);
-            } 
-            execvp(args[0], args);
-            printf("[ishell: program terminated abnormally][%d]\n", WEXITSTATUS(status));
-            //int wif = WIFEXITED(status);
-            //printf("child wif is %d\n", wif);
-            exit(0);
-        }
-        //parent
-        pid = Waitpid(pid, &status, 0);
-        int wif = WIFEXITED(status);
-        printf("wif is %d\n", wif);
-        int exitStatus = WEXITSTATUS(status);
-        printf("the exitstat is : %d\n", WEXITSTATUS(status));
-        /*
-        if (error != -1) {
-                printf("[ishell: program terminated successfully]\n");
-            } else {
-                printf("[ishell: program terminated abnormally][%d]\n", error);
+            semi = ";";
+            command[i] = strtok(buf, semi);
+            run(*command);
+            command[i] = strtok(NULL, semi);
+            while (*command != NULL) {
+                run(*command);
+                command[i] = strtok(NULL, semi);
             }
-        */
+            /*
+            secondCom[i] = strtok(NULL, semi);  
+            if (secondCom[i] != NULL) {
+                run(*secondCom);
+            }
+            */
+        }
         printf("ishell> ");
-    }
+        }
     exit(0);
 }
+
+void run(char buf[MAXLINE]) {
+    pid_t pid;
+    pid = Fork();
+    if (pid == 0) { // child 
+        char *args[MAXLINE];
+        int i = 0;
+        char *s = " ";
+        //tokenize buf by spaces
+        args[i] = strtok(buf, s);
+        while(args[i] != NULL) {
+            i++;
+            args[i] = strtok(NULL, s);
+        } 
+        if (execvp(args[0], args) == -1) {
+            exit(-1);
+        }
+        exit(0);
+    } 
+    int status;
+    pid = Waitpid(pid, &status, 0);
+    const int error = WEXITSTATUS(status);
+    if (error == 0) {
+            printf("[ishell: program terminated successfully]\n");
+    } else {
+            printf("[ishell: program terminated abnormally][%d]\n", error);
+    }
+}
+
+

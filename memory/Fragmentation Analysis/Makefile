@@ -12,7 +12,7 @@ BIN = ./bin
 vpath %.h ./include
 vpath %.c ./src
 
-EXECS = $(BIN)/dlisttest $(BIN)/memory-test $(BIN)/frag-eval $(BIN)/student
+EXECS = $(BIN)/dlisttest $(BIN)/frag-eval #$(BIN)/memory-test
 
 all: mkpaths $(EXECS)
 
@@ -34,14 +34,11 @@ $(BIN)/dlisttest: $(SRC)/dlisttest.c $(OBJ)/dnode.o $(OBJ)/dlist.o
 $(OBJ)/allocator.o: $(SRC)/allocator.c $(INC)/allocator.h
 	$(CC) $(CFLAGS) -c $(SRC)/allocator.c -o $(OBJ)/allocator.o
 
-$(BIN)/memory-test: $(OBJ)/allocator.o $(SRC)/memory-test.c
-	$(CC) $(CFLAGS) $(SRC)/memory-test.c $(OBJ)/allocator.o $(OBJ)/dnode.o $(OBJ)/dlist.o -o $(BIN)/memory-test
+#$(BIN)/memory-test: $(OBJ)/allocator.o $(SRC)/memory-test.c
+#	$(CC) $(CFLAGS) $(SRC)/memory-test.c $(OBJ)/allocator.o $(OBJ)/dnode.o $(OBJ)/dlist.o -o $(BIN)/memory-test
 
-$(BIN)/frag-eval: $(OBJ)/allocator.o $(SRC)/memory-test.c
+$(BIN)/frag-eval: $(OBJ)/allocator.o #$(SRC)/memory-test.c
 	$(CC) $(CFLAGS) $(SRC)/frag-eval.c $(OBJ)/allocator.o $(OBJ)/dnode.o $(OBJ)/dlist.o -o $(BIN)/frag-eval
-
-$(BIN)/student:
-	$(CC) $(CFLAGS) $(SRC)/sfu.c $(SRC)/dfu.c $(SRC)/student.c $(LFLAGS) -o $(BIN)/student
 
 .PHONY: clean
 clean:

@@ -11,5 +11,5 @@ all:
 
 .PHONY: clean
 clean:
-	/bin/rm -rf  buffOver heap-test heap-test.dSYM pipe-test pipe-test.dSYM pipes pipes.dSYM upper upper.dSYM tokens tokens.dSYM
+	/bin/rm -rf  buffOver.dSYM buffOver heap-test heap-test.dSYM pipe-test pipe-test.dSYM pipes pipes.dSYM upper upper.dSYM tokens tokens.dSYM
 

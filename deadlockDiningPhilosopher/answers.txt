@@ -1,0 +1,24 @@
+troy schwab
+
+1.1 
+Run your code for about 10 seconds. Do you observe any problems when your program runs?
+
+time isn't the best randomizer and creates for sometimes collective pauses rooted in the napping function
+
+1.2  
+Based on your understanding of the code, how could deadlock possibly happen?(Hint: reason through all the four conditions to deadlock occurrence apply and explain if they all apply.)
+
+    1. mutex is good because the locks are unshareable when a semaphore locks one
+    2. hold and wait is bad because a philosopher will hold a chopstick until it gets a second one
+    3. no preemption is that no philosophers can steal chopsticks
+    4. circular wait is if each process gets the right chopstick
+
+2.1 
+Describe the situation you observed which lead to deadlock.
+
+It's when all the philosophers get the right stick, or circular wait
+
+3.1 
+Discuss whether these solutions (even pick up right, odd pick up left and then each philosopher gets the lowest # chopstick possible) eliminate all the potential causes of deadlock. If you conclude that they don’t, indicate what problem(s) can still occur. 
+
+they do eliminate all cases.
